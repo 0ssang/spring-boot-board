@@ -14,6 +14,7 @@ import java.util.List;
 @Setter
 //Setter 사용 안하는 것을 권장.. 이때는 @Builder 빌드패턴 사용
 @Entity //JPA가 Entity로 인식한다.
+//@SequenceGenerator(name = "MY_SEQ_GENERATOR", sequenceName = "MY_SEQ", initialValue = 1, allocationSize = 1)
 public class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)//해당 컬럼만의 독립적인 시퀀스 생성
