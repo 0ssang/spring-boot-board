@@ -1,12 +1,12 @@
-package com.mysite.sbb;
+package com.mysite.sbb.question;
 /*
 질문 엔티티
  */
+import com.mysite.sbb.answer.Answer;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.nio.MappedByteBuffer;
 import java.time.LocalDateTime;
 import java.util.List;
 
