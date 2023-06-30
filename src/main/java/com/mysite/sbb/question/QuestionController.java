@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import java.util.List;
 import org.springframework.ui.Model;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.PathVariable;
+
 @RequiredArgsConstructor
 @Controller
 public class QuestionController {
@@ -26,4 +28,12 @@ public class QuestionController {
     redirect:<url> URL로 리다이렉트 (리다이렉트는 완전히 새로운 URL로 요청이 된다.)
     forward:<url> URL로 포워드 (포워드는 기존 요청 값들이 유지된 상태로 URL이 전환된다.)
      */
+
+    @GetMapping(value = "/question/detail/{id}")
+    public String detail(Model model, @PathVariable("id") Integer id){
+        Question question = this.questionService.getQuestion(id);
+        model.addAttribute("question", question);
+        return "question_detail";
+    }
+
 }
