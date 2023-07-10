@@ -1,5 +1,6 @@
 package com.mysite.sbb.question;
 
+import com.mysite.sbb.answer.AnswerForm;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -35,19 +36,19 @@ public class QuestionController {
      */
 
     @GetMapping(value = "/detail/{id}")
-    public String detail(Model model, @PathVariable("id") Integer id){
+    public String detail(Model model, @PathVariable("id") Integer id, AnswerForm answerForm){
         Question question = this.questionService.getQuestion(id);
         model.addAttribute("question", question);
         return "question_detail";
     }
 
     @GetMapping("/create")
-    public String questionCreate(){
+    public String questionCreate(QuestionForm questionForm){ //매개변수로 바인딩한 객체는 Model 객체로 전달하지 않아도  템플릿에서 사용이 가능하다.
         return "question_form";
     }
 
     @PostMapping("/create")
-    public String qeustionCreate(@Valid QuestionForm questionForm, BindingResult bindingResult){
+    public String questionCreate(@Valid QuestionForm questionForm, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
             return "question_form";
         }
