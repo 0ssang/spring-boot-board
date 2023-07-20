@@ -4,6 +4,7 @@ import com.mysite.sbb.answer.Answer;
 import com.mysite.sbb.answer.AnswerRepository;
 import com.mysite.sbb.question.Question;
 import com.mysite.sbb.question.QuestionRepository;
+import com.mysite.sbb.question.QuestionService;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +22,9 @@ class SbbApplicationTests {
     private QuestionRepository questionRepository;
     @Autowired
     private AnswerRepository answerRepository;
+    @Autowired
+    private QuestionService questionService;
 
-    @Transactional //테스트 환경에서 Lazy 방식 오류를 해결하기 위함. 메서드가 종료 될 때까지 DB세션을 유지한다.
     @Test
             //CREATE TEST
             //READ TEST
@@ -100,6 +102,7 @@ class SbbApplicationTests {
         Answer a = oa.get();
         assertEquals(2, a.getQuestion().getId());
     }*/
+    /*
     void testJpa(){
         Optional<Question> oq = this.questionRepository.findById(2);
         assertTrue(oq.isPresent());
@@ -109,6 +112,14 @@ class SbbApplicationTests {
 
         assertEquals(1, answerList.size());
         assertEquals("네 자동으로 생성됩니다.", answerList.get(0).getContent());
+    }
+     */
+    void testJpa(){
+        for(int i = 1; i <= 300; i++){
+            String subject = String.format("테스트 데이터 입니다: [%03d]", i);
+            String content = "내용무";
+            this.questionService.create(subject, content);
+        }
     }
 
 

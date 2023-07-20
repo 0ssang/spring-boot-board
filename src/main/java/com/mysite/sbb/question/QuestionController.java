@@ -5,6 +5,8 @@ import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.data.domain.Page;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import org.springframework.ui.Model;
@@ -19,17 +21,13 @@ public class QuestionController {
     //private final QuestionRepository questionRepository;
     private final QuestionService questionService;
     @GetMapping("/list")
-    public String list(Model model){
-        List<Question> questionList = this.questionService.getList();
-        model.addAttribute("questionList", questionList);
+    public String list(Model model, @RequestParam(value="page", defaultValue = "0") int page){
+        Page<Question> paging = this.questionService.getList(page);
+        model.addAttribute("paging", paging);
         //타임리프는 model에 저장된 값을 읽을 수 있다.
         return "question_list";
     }
 
-    @GetMapping("/")
-    public String root(){
-        return "redirect:/list";
-    }
     /*
     redirect:<url> URL로 리다이렉트 (리다이렉트는 완전히 새로운 URL로 요청이 된다.)
     forward:<url> URL로 포워드 (포워드는 기존 요청 값들이 유지된 상태로 URL이 전환된다.)
@@ -55,5 +53,6 @@ public class QuestionController {
         this.questionService.create(questionForm.getSubject(), questionForm.getContent());
         return "redirect:/question/list"; //질문 후 저장 목록으로 이동
     }
+
 
 }
