@@ -53,6 +53,4 @@ public class QuestionController {
         this.questionService.create(questionForm.getSubject(), questionForm.getContent());
         return "redirect:/question/list"; //질문 후 저장 목록으로 이동
     }
-
-
 }
