@@ -3,6 +3,7 @@ package com.mysite.sbb.question;
 질문 엔티티
  */
 import com.mysite.sbb.answer.Answer;
+import com.mysite.sbb.user.SiteUser;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -37,4 +38,7 @@ public class Question {
     @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
     // Answer 엔티티에서 Question 엔티티를 참조한 속성명 question을 mappedBy에 전달해야 한다.
     private List<Answer> answerList;
+
+    @ManyToOne
+    private SiteUser author;
 }
